@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    
+    <div class='main-body'>
+        <!-- What is a Digital Nomad -->
+        <div class='nomad-description-box'>
+          <a href="https://en.wikipedia.org/wiki/Digital_nomad" target='_blank'><span id='nomad-text'>Digital Nomad:</a></span> Someone who is able to work from anywhere they have an internet connection and usually does so while traveling away from their home.
+        </div>
+        <div id = 'vue'>
+        <!-- Search -->
+          <div class='search-area'>
+            <h3>Looking for places to work out of?</h3>
+            <p>
+              <input id='user-input' type='text' placeholder='Enter Location (city, state)'>
+              <button type='submit' class='submit-button'>Submit</button>
+            </p>
+          </div>
+        </div>
 
-<h1>Hello World!  This is working! </h1>
+    </div> <!-- End of main-body div -->
 
 {% endblock content %}

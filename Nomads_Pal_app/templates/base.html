@@ -11,12 +11,26 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-            
-    
     <title>Nomad's Pal</title>
 </head>
 <body>
+    <header>
+        <nav>
+    <div class="nav-wrapper">
+      <a href="http://www.nomadspal.com" class="brand-logo">Nomad's Pal</a>
+      <ul id="nav-mobile" class="right  hide-on-med-and-down">
+        <li><a href="#">How to Become a Digital Nomad</a></li>
+        <li><a href="#">Places to Go</a></li>
+        <li><a href="#">Travel Insurance</a></li>
+      </ul>
+    </div>
+  </nav>
+    </header> 
     {% block content %}
     {% endblock content %}
+
+    <script src='https://unpkg.com/vue'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

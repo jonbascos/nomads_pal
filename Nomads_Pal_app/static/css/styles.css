@@ -1,3 +1,48 @@
+
+
 body {
-    background-color: red;
+    background-color: gray;
+    color: red;
+    font-size: 1.5em;
+}
+
+.main-body {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.nomad-description-box {
+    max-width: 500px;
+    height: 100%;
+    border: 5px solid black;
+    padding: 10px;
+    margin: 10px auto;
+}
+
+#nomad-text {
+    font-weight: bolder;
+}
+
+.search-area {
+    text-align: center;
+    margin: auto;
+}
+
+#user-input {
+    width: 200px;
+    border: 1px solid black;
+    text-align: center;
+    box-shadow: 0 0 10px blue;
+}
+
+.submit-button {
+    padding: 5px;
+    outline: none;
+    margin-left: 10px;
+}
+
+.submit-button:hover {
+    background-color: black;
+    color: white;
 }
