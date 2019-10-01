@@ -10,3 +10,7 @@ class HomePageView(ListView):
 class ResultsPageView(ListView):
     model = Location
     template_name = 'results.html'
+
+class AddNewPageView(ListView):
+    model = Location
+    template_name = 'addNew.html'

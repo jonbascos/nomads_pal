@@ -7,9 +7,23 @@
 Search results for: {{city}} {{state}}
 
 <div id='vue'>
-    <div class='location-card'>
-        Hello World
-    </div> <!-- end location card div -->
+   <div v-if='clickedSubmit'>
+    <h2>Results:</h2>
+        <div class='location-card-area'>
+            <ul v-for="location in locations">
+                <div class='location-card'>
+                    <li><h3>[[ location.businessName ]]</h3></li>
+                    <li v-if="location.locationPhoto"><img :src=[[location.locationPhoto]] class='locationPhoto'></li>
+                    <li v-else><img src="media/images/location/default_image.png "></li>
+                    <li>Address: [[location.locationAddress]]<br>[[location.locationCity]], [[location.locationState]] [[location.locationZipCode]]</li>
+                    <li>Phone number: [[ location.phoneNumber ]]</li>
+                    <li><a :href=[[location.websiteUrl]]>[[location.websiteUrl]]</a></li>
+                    <li>Store Hours: [[location.storeHours]]</li>
+                    <li v-if=![[location.uploadSpeed]]>Upload: No Information</li>
+                    <li v-else> Upload: [[location.uploadSpeed]]</li>
+                    <li>Download: [[location.downloadSpeed]]</li>
+                </div>
+                </ul> 
 </div> <!-- end vue div -->
 
 {% endblock content %}

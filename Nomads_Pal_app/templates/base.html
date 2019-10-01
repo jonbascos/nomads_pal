@@ -14,11 +14,13 @@
     <title>Nomad's Pal</title>
 </head>
 <body>
-    <header>
+    <div id='vue'>
+     <header>
         <nav>
     <div class="nav-wrapper">
-      <a href="http://www.nomadspal.com" class="brand-logo">Nomad's Pal</a>
+      <a href="{% url 'home' %}" class="brand-logo">Nomad's Pal</a>
       <ul id="nav-mobile" class="right  hide-on-med-and-down">
+        <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="#">How to Become a Digital Nomad</a></li>
         <li><a href="#">Places to Go</a></li>
         <li><a href="#">Travel Insurance</a></li>
@@ -26,11 +28,18 @@
     </div>
   </nav>
     </header> 
-    {% block content %}
-    {% endblock content %}
-
+      {% block content %}
+      {% endblock content %}
+    </div>
     <script src='https://unpkg.com/vue'></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src='{% static "js/vuescripts.js" %}'></script>
 </body>
 </html>
+
+
+
+
+
+
+ 

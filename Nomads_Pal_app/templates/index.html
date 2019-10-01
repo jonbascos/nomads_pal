@@ -10,14 +10,57 @@
         <div id = 'vue'>
         <!-- Search -->
           <div class='search-area'>
-            <h3>Looking for places to work out of?</h3>
-            <p>
-              <input id='user-input' type='text' placeholder='Enter Location (city, state)'>
-              <button type='submit' class='submit-button'>Submit</button>
-            </p>
+            Looking for a coffee shop or co-working space  to work out of in the Portland Metro? 
+            <form @submit.prevent="search">
+                {% csrf_token %}
+                <input id='userCity' type='text' placeholder='What City are you in?' v-model='city'>
+                <input id='userState' type='text' placeholder='What state are you in?' v-model='state'>
+                <button type='submit' class='submit-button' @click.prevent='search'>Submit</button>
+            </form>
+          </div>
+          <div v-if='clickedSubmit'>
+            <h2>Results:</h2>
+            <div class='location-card-area'>
+              <ul v-for="location in resultLocations">
+              <div class='location-card'>
+                <li><h3>[[ location.businessName ]]</h3></li>
+                <li v-if="location.locationPhoto"><img :src=[[location.locationPhoto]] class='locationPhoto'></li>
+                <li v-else><img src="media/images/location/default_image.png "></li>
+                <li>Address: [[location.locationAddress]]<br>[[location.locationCity]], [[location.locationState]] [[location.locationZipCode]]</li>
+                <li>Phone number: [[ location.phoneNumber ]]</li>
+                <li><a :href=[[location.websiteUrl]]>[[location.websiteUrl]]</a></li>
+                <li>Store Hours: [[location.storeHours]]</li>
+                <li v-if=![[location.uploadSpeed]]>Upload: No Information</li>
+                <li v-else> Upload: [[location.uploadSpeed]]</li>
+                <li>Download: [[location.downloadSpeed]]</li>
+              </ul>
+            </div> <!-- End Location Card Area Div -->
           </div>
         </div>
 
     </div> <!-- End of main-body div -->
 
 {% endblock content %}
+
+
+
+
+
+
+
+
+
+
+{% comment %} <ul v-for="location in locations">
+              <div class='location-card'>
+                <li><h3>[[ location.businessName ]]</h3></li>
+                <li v-if="location.locationPhoto"><img :src=[[location.locationPhoto]] class='locationPhoto'></li>
+                <li v-else><img src="media/images/location/default_image.png "></li>
+                <li>Address: [[location.locationAddress]]<br>[[location.locationCity]], [[location.locationState]] [[location.locationZipCode]]</li>
+                <li>Phone number: [[ location.phoneNumber ]]</li>
+                <li><a :href=[[location.websiteUrl]]>[[location.websiteUrl]]</a></li>
+                <li>Store Hours: [[location.storeHours]]</li>
+                <li v-if=![[location.uploadSpeed]]>Upload: No Information</li>
+                <li v-else> Upload: [[location.uploadSpeed]]</li>
+                <li>Download: [[location.downloadSpeed]]</li>
+              </ul> {% endcomment %}
