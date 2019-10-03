@@ -3,14 +3,14 @@
 {% block content %}
     <div id='vue'>
         <h1>Nomad's Pal</h1>
-        <p>Add New Location</p>
-        <form @submit='addLocation' id='addNewForm'>
+        <form @submit.prevent='addLocation' id='addNewForm'>
+            <h1>Add New Location</h1>
             {% csrf_token %}
             <label class='add_input'>Business Name:</label>
-            <input v-model='Location' placeholder='Name of Business'>
+            <input v-model='newLocation.businessName' placeholder='Name of Business'>
 
             <label class='add_input'>Upload Picture of Location</label>
-            <input v-model='newLocation.locationPhoto' placeholder='Upload photo'>
+            <input v-model='newLocation.locationPhoto' placeholder='Upload photo (optional)'>
 
             <label class='add_input'>Address:</label>
             <input v-model='newLocation.locationAddress' placeholder='Address'>
@@ -24,8 +24,14 @@
             <label class='add_input'>Zipcode/Postal Code:</label>
             <input v-model='newLocation.locationZipCode' placeholder='Zipcode/Postal Code'>
 
+            <label class='add_input'>Phone Number:</label>
+            <input v-model='newLocation.phoneNumber' placeholder='Phone Number (optional)'>
+
             <label class='add_input'>Website:</label>
-            <input v-model='newLocation.websiteUrl' placeholder='http://www.google.com'>
+            <input v-model='newLocation.websiteUrl' placeholder='http://www.google.com (optional)'>
+
+            <label class='add_input'>Store hours:</label>
+            <input v-model='newLocation.storeHours' placeholder='Store Hours (optional)'>
 
             <label class='add_input'>Upload Speed:</label>
             <input v-model='newLocation.uploadSpeed' placeholder='uploadSpeed'>
@@ -33,7 +39,7 @@
             <label class='add_input'>Download Speed:</label>
             <input v-model='newLocation.downloadSpeed' placeholder='downloadSpeed'>
 
-            <button type='Submit' @click='addLocation'>Submit</button>
+            <button type='Submit' @click.prevent='addLocation'>Submit</button>
         </form>
     </div>
 {% endblock content %}
