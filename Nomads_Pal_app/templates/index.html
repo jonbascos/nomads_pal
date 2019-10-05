@@ -19,6 +19,7 @@
             </form>
             <div id='addLocationButton'><button @click='viewAddLocation'>Add Location</button></div>
           </div>
+          <!-- Search Results Area -->
      <h2 v-if="clickedSubmit">Results:</h2>
       <div v-if="resultLocations.length == 0">
               <strong>No results found</strong>
@@ -42,16 +43,15 @@
             </div> <!-- End Location Card Area Div -->
             
             <!-- Add New Location Form -->
-            <div class='add-new-area-div' v-if="addNewLocation === true">
-              <form ref="myForm" @submit.prevent='addLocation' id='addNewForm'>
+            <div class='add-new-area-div' v-if="addNewLocation">
+              <form @submit.prevent='addLocation' id='addNewForm' >
               <h1>Add New Location</h1>
               {% csrf_token %}
               <label class='add_input'>Business Name:</label>
               <input v-model='newLocation.businessName' placeholder='Name of Business'>
 
-              {% comment %} <label class='add_input'>Upload Picture of Location</label>
-              <input type="file" @change="uploadImage" name="image" id="image" accept="image/*" placeholder='Upload photo (optional)'>
-              <button type="submit" @click.prevent="submitPhoto">Upload</button>  {% endcomment %}
+              <label class='add_input'>Upload Picture of Location</label>
+              <input type="file" @change="uploadImage" accept="image/*" placeholder='Upload photo (optional)'> 
 
               <label class='add_input'>Address:</label>
               <input v-model='newLocation.locationAddress' placeholder='Address'>
@@ -89,30 +89,3 @@
     </div> <!-- End of main-body div -->
 
 {% endblock content %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} <ul v-for="location in locations">
-              <div class='location-card'>
-                <li><h3>[[ location.businessName ]]</h3></li>
-                <li v-if="location.locationPhoto"><img :src=[[location.locationPhoto]] class='locationPhoto'></li>
-                <li v-else><img src="media/images/location/default_image.png "></li>
-                <li>Address: [[location.locationAddress]]<br>[[location.locationCity]], [[location.locationState]] [[location.locationZipCode]]</li>
-                <li>Phone number: [[ location.phoneNumber ]]</li>
-                <li><a :href=[[location.websiteUrl]]>[[location.websiteUrl]]</a></li>
-                <li>Store Hours: [[location.storeHours]]</li>
-                <li v-if=![[location.uploadSpeed]]>Upload: No Information</li>
-                <li v-else> Upload: [[location.uploadSpeed]]</li>
-                <li>Download: [[location.downloadSpeed]]</li>
-              </ul> {% endcomment %}
