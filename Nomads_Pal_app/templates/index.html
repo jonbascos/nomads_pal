@@ -1,91 +1,97 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    
-    <div class='main-body'>
-        <!-- What is a Digital Nomad -->
-        <div class='nomad-description-box'>
-          <a href="https://en.wikipedia.org/wiki/Digital_nomad" target='_blank'><span id='nomad-text'>Digital Nomad:</a></span> Someone who is able to work from anywhere they have an internet connection and usually does so while traveling away from their home.
-        </div>
-        <div id = 'vue'>
-        <!-- Search -->
-          <div class='search-area'>
-            Looking for a coffee shop or co-working space  to work out of in the Portland Metro? 
-            <form @submit.prevent="search">
-                {% csrf_token %}
-                <input id='userCity' type='text' placeholder='What City are you in?' v-model='city'>
-                <input id='userState' type='text' placeholder='What state are you in?' v-model='state'>
-                <button type='submit' class='submit-button' @click.prevent='search'>Submit</button>
-            </form>
-            <div id='addLocationButton'><button @click='viewAddLocation'>Add Location</button></div>
-          </div>
-          <!-- Search Results Area -->
-     <h2 v-if="clickedSubmit">Results:</h2>
-      <div v-if="resultLocations.length == 0">
-              <strong>No results found</strong>
-            </div>
-            <div v-else>
-              <div class='location-card-area'>
-                <ul v-for="location in resultLocations">
-                <div class='location-card'>
-                  <li><h3>[[ location.businessName ]]</h3></li>
-                  <li v-if="location.locationPhoto"><img :src=[[location.locationPhoto]] class='locationPhoto'></li>
-                  <li v-else><img src="media/images/location/default_image.png "></li>
-                  <li>Address: [[location.locationAddress]]<br>[[location.locationCity]], [[location.locationState]] [[location.locationZipCode]]</li>
-                  <li>Phone number: [[ location.phoneNumber ]]</li>
-                  <li><a :href=[[location.websiteUrl]]>[[location.websiteUrl]]</a></li>
-                  <li>Store Hours: [[location.storeHours]]</li>
-                  <li v-if=![[location.uploadSpeed]]>Upload: No Information</li>
-                  <li v-else> Upload: [[location.uploadSpeed]]</li>
-                  <li>Download: [[location.downloadSpeed]]</li>
-                </ul>
-              </div> <!-- End Location Card Div -->
-            </div> <!-- End Location Card Area Div -->
-            
-            <!-- Add New Location Form -->
-            <div class='add-new-area-div' v-if="addNewLocation">
-              <form @submit.prevent='addLocation' id='addNewForm' >
-              <h1>Add New Location</h1>
-              {% csrf_token %}
-              <label class='add_input'>Business Name:</label>
-              <input v-model='newLocation.businessName' placeholder='Name of Business'>
 
-              <label class='add_input'>Upload Picture of Location</label>
-              <input type="file" @change="uploadImage" accept="image/*" placeholder='Upload photo (optional)'> 
+<div class='main-body'>
+  <!-- What is a Digital Nomad -->
+  <div class='nomad-description-box'>
+    <a href="https://en.wikipedia.org/wiki/Digital_nomad" target='_blank'><span id='nomad-text'>Digital
+        Nomad:</a></span> Someone who is able to work from anywhere they have an internet connection and usually does so
+    while traveling away from their home.
+  </div>
+  <div id='vue'>
+    <!-- Search -->
+    <div class='search-area'>
+      Looking for a coffee shop or co-working space to work out of in the Portland Metro?
+      <form @submit.prevent="search">
+        {% csrf_token %}
+        <label for='userCity'>City</label><br>
+        <input id='userCity' type='text' v-model='city'><br>
+        <label for='userState'>State</label><br>
+        <input id='userState' type='text' v-model='state'><br>
+        {% comment %} <button type='submit' class='submit-button' @click.prevent='search'>Submit</button> {% endcomment %}
+        <button class="btn waves-effect waves-light" type="submit" @click.prevent='search'>Submit</button>
+      </form>
+      <div><button class="btn waves-effect waves-light" type="submit" @click.prevent='viewAddLocation'>Add Location</button></div>
+    </div>
+    <!-- Search Results Area -->
+    <h2 v-if="clickedSubmit">Results:</h2>
+    <div v-if="resultLocations.length == 0">
+      <strong>No results found</strong>
+    </div>
+    <div v-else>
+      <div class='location-card-area'>
+        <ul v-for="location in resultLocations">
+          <div class='location-card'>
+            <li>
+              <h3>[[ location.businessName ]]</h3>
+            </li>
+            <li v-if="location.locationPhoto"><img :src=[[location.locationPhoto]] class='locationPhoto'></li>
+            {% comment %} <li v-else><img src="media/images/location/default_image.png "></li> {% endcomment %}
+            <li v-else><img src="https://placeimg.com/200/200/tech"></li>
+            <li>Address: [[location.locationAddress]]<br>[[location.locationCity]], [[location.locationState]]
+              [[location.locationZipCode]]</li>
+            <li>Phone number: [[ location.phoneNumber ]]</li>
+            <li><a :href=[[location.websiteUrl]]>[[location.websiteUrl]]</a></li>
+            <li>Store Hours: [[location.storeHours]]</li>
+            <li v-if=![[location.uploadSpeed]]>Upload: No Information</li>
+            <li v-else> Upload: [[location.uploadSpeed]]</li>
+            <li>Download: [[location.downloadSpeed]]</li>
+        </ul>
+      </div> <!-- End Location Card Div -->
+    </div> <!-- End Location Card Area Div -->
 
-              <label class='add_input'>Address:</label>
-              <input v-model='newLocation.locationAddress' placeholder='Address'>
+    <!-- Add New Location Form -->
+    <div class='add-new-area-div' v-if="addNewLocation">
+      <form @submit.prevent='addLocation' id='addNewForm'>
+        <h1>Add New Location</h1>
+        {% csrf_token %}
+        <label class='add_input' for='businessName'>Business Name:</label>
+        <input v-model='newLocation.businessName' id='businessName' placeholder='Name of Business'>
 
-              <label class='add_input'>City:</label>
-              <input v-model='newLocation.locationCity' placeholder='City'>
+        <label class='add_input' for='address'>Address:</label>
+        <input v-model='newLocation.locationAddress' id='address' placeholder='Address'>
 
-              <label class='add_input'>State:</label>
-              <input v-model='newLocation.locationState' placeholder='State: OR'>
+        <label class='add_input' for='city'>City:</label>
+        <input v-model='newLocation.locationCity' id='city' placeholder='City'>
 
-              <label class='add_input'>Zipcode/Postal Code:</label>
-              <input v-model='newLocation.locationZipCode' placeholder='Zipcode/Postal Code'>
+        <label class='add_input' for='state'>State:</label>
+        <input v-model='newLocation.locationState' id='state' placeholder='State: OR'>
 
-              <label class='add_input'>Phone Number:</label>
-              <input v-model='newLocation.phoneNumber' placeholder='Phone Number (optional)'>
+        <label class='add_input' for='zipcode'>Zipcode/Postal Code:</label>
+        <input v-model='newLocation.locationZipCode' id='zipcode' placeholder='Zipcode/Postal Code'>
 
-              <label class='add_input'>Website:</label>
-              <input v-model='newLocation.websiteUrl' placeholder='http://www.google.com (optional)'>
+        <label class='add_input' for='phoneNumber'>Phone Number:</label>
+        <input v-model='newLocation.phoneNumber' id='phoneNumber' placeholder='Phone Number (optional)'>
 
-              <label class='add_input'>Store hours:</label>
-              <input v-model='newLocation.storeHours' placeholder='Store Hours (optional)'>
+        <label class='add_input' for='website'>Website:</label>
+        <input v-model='newLocation.websiteUrl' id='website' placeholder='http://www.google.com (optional)'>
 
-              <label class='add_input'>Upload Speed:</label>
-              <input v-model='newLocation.uploadSpeed' placeholder='uploadSpeed'>
+        <label class='add_input' for='storeHours'>Store hours:</label>
+        <input v-model='newLocation.storeHours' id='storeHours' placeholder='Store Hours (optional)'>
 
-              <label class='add_input'>Download Speed:</label>
-              <input v-model='newLocation.downloadSpeed' placeholder='downloadSpeed'>
+        <label class='add_input' for='uploadSpeed'>Upload Speed:</label>
+        <input v-model='newLocation.uploadSpeed' id='uploadSpeed' placeholder='uploadSpeed'>
 
-              <button type='Submit' @click.prevent='addLocation'>Submit</button>
-          </form>
-            
-            </div> <!-- End Add New Area Div -->
-          </div>
+        <label class='add_input' for='downloadSpeed'>Download Speed:</label>
+        <input v-model='newLocation.downloadSpeed' id='downloadSpeed' placeholder='downloadSpeed'>
 
-    </div> <!-- End of main-body div -->
+        <button class="btn waves-effect waves-light" type="submit" @click.prevent='addLocation'>Submit</button>
+      </form>
+
+    </div> <!-- End Add New Area Div -->
+  </div>
+
+</div> <!-- End of main-body div -->
 
 {% endblock content %}
