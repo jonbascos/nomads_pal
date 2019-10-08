@@ -10,7 +10,7 @@ label {
     font-size: 1.5em;
 }
 
-.brand-logo {
+.brand-logo:hover {
     
     text-decoration: underline;
     text-decoration-color: teal;
@@ -18,6 +18,12 @@ label {
 
 .nav-wrapper {
     background-color: #63707e;
+}
+
+nav ul a:hover,
+.brand-logo:hover {
+    text-decoration: underline;
+    text-decoration-color: teal;
 }
 
 .main-body {
@@ -75,14 +81,14 @@ label {
 }
 
 .location-card {
-    
+    background-color: #546E7A;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 5px solid #63707e;
     padding: 5px;
-    /* width: 100%; */
+    width: 450px;
     height: 100%;
     margin-left: 10px;
     font-size: 1em;
