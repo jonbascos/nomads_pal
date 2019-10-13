@@ -13,23 +13,18 @@
     <!-- Search -->
     <div class='search-area'>
       Looking for a coffee shop or co-working space to work out of in the Portland Metro?
-      <form @submit.prevent="search">
+      <form method='post' action={% url 'results' %}>
         {% csrf_token %}
         <label for='userCity'>City</label><br>
-        <input id='userCity' type='text' v-model='city'><br>
+        <input id='userCity' type='text' @input="city = $event.target.value.toUpperCase()"><br>
         <label for='userState'>State</label><br>
-        <input id='userState' type='text' v-model='state'><br>
+        <input id='userState' type='text' @input="state = $event.target.value.toUpperCase()"><br>
         {% comment %} <button type='submit' class='submit-button' @click.prevent='search'>Submit</button> {% endcomment %}
-        <button class="btn waves-effect waves-dark" type="submit" @click.prevent='search'>Submit</button>
+        <button class="btn waves-effect waves-dark" type="submit" @click.prevent='getLocations'>Submit</button>
       </form>
       <div><button class="btn waves-effect waves-light" type="submit" @click.prevent='viewAddLocation'>Add Location</button></div>
     </div>
     <!-- Search Results Area -->
-    <h2 v-if="clickedSubmit">Results:</h2>
-    <div v-if="resultLocations.length == 0">
-      <strong>No results found</strong>
-    </div>
-    <div v-else>
       <div class='location-card-area'>
         <ul v-for="location in resultLocations">
           <div class='location-card'>
@@ -37,7 +32,6 @@
               <h3>[[ location.businessName ]]</h3>
             </li>
             <li v-if="location.locationPhoto"><img :src=[[location.locationPhoto]] class='locationPhoto'></li>
-            {% comment %} <li v-else><img src="media/images/location/default_image.png "></li> {% endcomment %}
             <li v-else><img src="https://placeimg.com/200/200/tech"></li>
             <li>Address: [[location.locationAddress]]<br>[[location.locationCity]], [[location.locationState]]
               [[location.locationZipCode]]</li>
@@ -49,8 +43,8 @@
             <li>Download: [[location.downloadSpeed]]</li>
         </ul>
       </div> <!-- End Location Card Div -->
-    </div> <!-- End Location Card Area Div -->
-
+    </div> <!-- End Location Card Area Div --> 
+    </div>
     <!-- Add New Location Form -->
     <div class='add-new-area-div' v-if="addNewLocation">
       <form @submit.prevent='addLocation' id='addNewForm'>
@@ -63,10 +57,10 @@
         <input v-model='newLocation.locationAddress' id='address' placeholder='Address'>
 
         <label class='add_input' for='city'>City:</label>
-        <input v-model='newLocation.locationCity' id='city' placeholder='City'>
+        <input v-model='newLocation.locationCity' id='city' placeholder='City' @input="newLocation.locationCity = $event.target.value.toUpperCase()">
 
         <label class='add_input' for='state'>State:</label>
-        <input v-model='newLocation.locationState' id='state' placeholder='State: OR'>
+        <input id='state' placeholder='State: OR' @input="newLocation.locationState = $event.target.value.toUpperCase()">
 
         <label class='add_input' for='zipcode'>Zipcode/Postal Code:</label>
         <input v-model='newLocation.locationZipCode' id='zipcode' placeholder='Zipcode/Postal Code'>
@@ -80,11 +74,11 @@
         <label class='add_input' for='storeHours'>Store hours:</label>
         <input v-model='newLocation.storeHours' id='storeHours' placeholder='Store Hours (optional)'>
 
-        <label class='add_input' for='uploadSpeed'>Upload Speed:</label>
-        <input v-model='newLocation.uploadSpeed' id='uploadSpeed' placeholder='uploadSpeed'>
-
         <label class='add_input' for='downloadSpeed'>Download Speed:</label>
         <input v-model='newLocation.downloadSpeed' id='downloadSpeed' placeholder='downloadSpeed'>
+
+        <label class='add_input' for='uploadSpeed'>Upload Speed:</label>
+        <input v-model='newLocation.uploadSpeed' id='uploadSpeed' placeholder='uploadSpeed'>
 
         <button class="btn waves-effect waves-light" type="submit" @click.prevent='addLocation'>Submit</button>
       </form>
