@@ -1,10 +1,47 @@
+Vue.component('results', {
+    props: ['location'],
+
+    template: `
+        <div>
+            <div class="location-card-area">
+                <div class="location-card">
+                    <ul >
+                        <li>{{ location.businessName }}</li>
+                        <li><img src="https://placeimg.com/200/200/tech"></li>
+                        <li>Address: {{ location.locationAddress }}<br> {{ location.locationCity}}, {{ location.locationState}} {{ location.locationZipCode }}</li>
+                        <button @click="detailstoggle = ! detailstoggle" class="btn">Details</button>
+                        <div v-if="detailstoggle">
+                            <li>Phone Number: {{ location.phoneNumber }}</li>
+                            <li><a :href=location.websiteUrl>{{ location.websiteUrl }}</a></li>
+                            <li>Store Hours: {{ location.storeHours }}</li>
+                            <li>Download Speed: {{ location.downloadSpeed }} Mbps</li>
+                            <li>Upload Speed: {{ location.uploadSpeed }} Mbps</li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `,
+
+    data () {
+        return {
+            detailstoggle: false,
+        }
+    }
+})
+
 
 new Vue({
     el: '#vue',
     delimiters: ['[[', ']]'],
     data: {
+        results: null,
+        page: 1,
+        next: null,
+        previous: null,
         clickedSubmit: false,
         addNewLocation: false,
+        details: false,
         city: "",
         state: "",
         locations: [],
@@ -32,6 +69,7 @@ new Vue({
                 params: {
                     locationCity: this.city,
                     locationState: this.state,
+                    page: this.page,
                 },
                 headers: {
                     "X-CSRFToken": csrf_token
@@ -39,6 +77,11 @@ new Vue({
             }).then(response => {
                 console.log(response);
                 this.resultLocations = response.data.results;
+                this.next = response.data.next;
+                console.log(this.next);
+                this.previous = response.data.previous;
+                console.log(this.previous);
+                console.log(this.resultLocations);
                 this.city="";
                 this.state="";
             })
@@ -69,20 +112,17 @@ new Vue({
                     console.log(response);
                     alert('Success');
                     this.addNewLocation = false;
+                    this.newLocation.businessName = "";
+                    this.newLocation.locationAddress = "";
+                    this.newLocation.locationCity = "";
+                    this.newLocation.locationState = "";
+                    this.newLocation.locationZipCode = "";
+                    this.newLocation.phoneNumber = "";
+                    this.newLocation.websiteUrl = "";
+                    this.newLocation.storeHours = "";
+                    this.newLocation.downloadSpeed = "";
+                    this.newLocation.uploadSpeed = "";
                 })
-        },
-        viewAddLocation: function () {
-            if (this.clickedSubmit === true) {
-                this.clickedSubmit = false;
-                this.resultLocations = '';
-            }
-
-            if (this.addNewLocation === false) {
-                this.addNewLocation = true;
-            } else {
-                this.addNewLocation = false;
-            }
-            console.log(this.addNewLocation);
         },
     },
 });

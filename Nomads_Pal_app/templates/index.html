@@ -16,35 +16,25 @@
       <form method='post' action={% url 'results' %}>
         {% csrf_token %}
         <label for='userCity'>City</label><br>
-        <input id='userCity' type='text' @input="city = $event.target.value.toUpperCase()"><br>
+        <input id='userCity' type='text' :value="city" @input="city = $event.target.value.toUpperCase()"><br>
         <label for='userState'>State</label><br>
-        <input id='userState' type='text' @input="state = $event.target.value.toUpperCase()"><br>
-        {% comment %} <button type='submit' class='submit-button' @click.prevent='search'>Submit</button> {% endcomment %}
+        <input id='userState' type='text' :value="state" @input="state = $event.target.value.toUpperCase()"><br>
+        {% comment %} <button type='submit' class='submit-button' @click.prevent='search'>Submit</button>
+        {% endcomment %}
         <button class="btn waves-effect waves-dark" type="submit" @click.prevent='getLocations'>Submit</button>
       </form>
-      <div><button class="btn waves-effect waves-light" type="submit" @click.prevent='viewAddLocation'>Add Location</button></div>
+      <div><button class="btn waves-effect waves-light" type="submit" @click='addNewLocation = ! addNewLocation'>Add
+          Location</button></div>
     </div>
+
+
     <!-- Search Results Area -->
-      <div class='location-card-area'>
-        <ul v-for="location in resultLocations">
-          <div class='location-card'>
-            <li>
-              <h3>[[ location.businessName ]]</h3>
-            </li>
-            <li v-if="location.locationPhoto"><img :src=[[location.locationPhoto]] class='locationPhoto'></li>
-            <li v-else><img src="https://placeimg.com/200/200/tech"></li>
-            <li>Address: [[location.locationAddress]]<br>[[location.locationCity]], [[location.locationState]]
-              [[location.locationZipCode]]</li>
-            <li>Phone number: [[ location.phoneNumber ]]</li>
-            <li><a :href=[[location.websiteUrl]]>[[location.websiteUrl]]</a></li>
-            <li>Store Hours: [[location.storeHours]]</li>
-            <li v-if=![[location.uploadSpeed]]>Upload: No Information</li>
-            <li v-else> Upload: [[location.uploadSpeed]]</li>
-            <li>Download: [[location.downloadSpeed]]</li>
-        </ul>
-      </div> <!-- End Location Card Div -->
-    </div> <!-- End Location Card Area Div --> 
-    </div>
+
+    <results v-for="location in resultLocations" :key="location.id" :location="location"></results>
+  
+    <!-- End Search Result Area -->
+
+
     <!-- Add New Location Form -->
     <div class='add-new-area-div' v-if="addNewLocation">
       <form @submit.prevent='addLocation' id='addNewForm'>
@@ -57,10 +47,12 @@
         <input v-model='newLocation.locationAddress' id='address' placeholder='Address'>
 
         <label class='add_input' for='city'>City:</label>
-        <input v-model='newLocation.locationCity' id='city' placeholder='City' @input="newLocation.locationCity = $event.target.value.toUpperCase()">
+        <input id='city' placeholder='City' :value="newLocation.locationCity"
+          @input="newLocation.locationCity = $event.target.value.toUpperCase()">
 
         <label class='add_input' for='state'>State:</label>
-        <input id='state' placeholder='State: OR' @input="newLocation.locationState = $event.target.value.toUpperCase()">
+        <input id='state' placeholder='State: OR' :value="newLocation.locationState"
+          @input="newLocation.locationState = $event.target.value.toUpperCase()">
 
         <label class='add_input' for='zipcode'>Zipcode/Postal Code:</label>
         <input v-model='newLocation.locationZipCode' id='zipcode' placeholder='Zipcode/Postal Code'>
@@ -74,18 +66,50 @@
         <label class='add_input' for='storeHours'>Store hours:</label>
         <input v-model='newLocation.storeHours' id='storeHours' placeholder='Store Hours (optional)'>
 
-        <label class='add_input' for='downloadSpeed'>Download Speed:</label>
+        <label class='add_input' for='downloadSpeed'>Download Speed (in Mbps): </label>
         <input v-model='newLocation.downloadSpeed' id='downloadSpeed' placeholder='downloadSpeed'>
 
-        <label class='add_input' for='uploadSpeed'>Upload Speed:</label>
+        <label class='add_input' for='uploadSpeed'>Upload Speed (in Mbps): </label>
         <input v-model='newLocation.uploadSpeed' id='uploadSpeed' placeholder='uploadSpeed'>
 
         <button class="btn waves-effect waves-light" type="submit" @click.prevent='addLocation'>Submit</button>
       </form>
-
     </div> <!-- End Add New Area Div -->
-  </div>
+  </div> <!-- End Vue Div -->
 
 </div> <!-- End of main-body div -->
 
 {% endblock content %}
+
+
+
+
+
+
+
+
+
+{% comment %} 
+  <div class='location-card-area' v-if="resultLocations.length > 0">
+      <ul v-for="location in resultLocations">
+        <div class='location-card'>
+          <li>
+            <h4 class='businessName'>[[ location.businessName ]]</h4>
+          </li>
+          <li v-if="location.locationPhoto"><img :src=[[location.locationPhoto]] class='locationPhoto'></li>
+          <li v-else><img src="https://placeimg.com/200/200/tech"></li>
+          <li>Address: [[location.locationAddress]]<br>[[location.locationCity]], [[location.locationState]]
+            [[location.locationZipCode]]</li>
+          <button @click="details = ! details" class="btn">Details</button>
+          <div v-if="details">
+            <li>Phone number: [[ location.phoneNumber ]]</li>
+            <li><a :href=[[location.websiteUrl]]>[[location.websiteUrl]]</a></li>
+            <li>Store Hours: [[location.storeHours]]</li>
+            <li v-if=![[location.uploadSpeed]]>Upload: No Information</li>
+            <li v-else> Upload: [[location.uploadSpeed]] Mbps</li>
+            <li>Download: [[location.downloadSpeed]] Mbps</li>
+          </div>
+        </div> <!-- End Location Card Div -->
+      </ul>
+    </div> <!-- End Location Card Area Div -->
+    </div> {% endcomment %}

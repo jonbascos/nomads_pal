@@ -10,7 +10,9 @@ class HomePageView(ListView):
 class ResultsPageView(DetailView):
     model = Location
     template_name = 'results.html'
+    
 
 class AddNewPageView(ListView):
     model = Location
     template_name = 'addNew.html'
+    success_url = 'home'

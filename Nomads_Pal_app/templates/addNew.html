@@ -11,10 +11,10 @@
             <input v-model='newLocation.locationAddress' placeholder='Address'>
 
             <label class='add_input'>City:</label>
-            <input v-model='newLocation.locationCity' placeholder='City'>
+            <input  @input="newLocation.locationCity = $event.target.value.toUpperCase()" placeholder='City'>
 
             <label class='add_input'>State:</label>
-            <input v-model='newLocation.locationState' placeholder='State: OR'>
+            <input @input="newLocation.locationState = $event.target.value.toUpperCase()" placeholder='State: OR'>
 
             <label class='add_input'>Zipcode/Postal Code:</label>
             <input v-model='newLocation.locationZipCode' placeholder='Zipcode/Postal Code'>
