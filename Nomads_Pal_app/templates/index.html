@@ -10,21 +10,31 @@
     while traveling away from their home.
   </div>
   <div id='vue'>
-    <!-- Search -->
+    <!-- Search --> 
     <div class='search-area'>
       Looking for a coffee shop or co-working space to work out of in the Portland Metro?
-      <form method='post' action={% url 'results' %}>
+      <div class="row">
+      <form method='post' action={% url 'results' %} class="col s12">
         {% csrf_token %}
-        <label for='userCity'>City</label><br>
-        <input id='userCity' type='text' :value="city" @input="city = $event.target.value.toUpperCase()"><br>
-        <label for='userState'>State</label><br>
-        <input id='userState' type='text' :value="state" @input="state = $event.target.value.toUpperCase()"><br>
+        <div class="row">
+        <div class='input-field col s6'>
+          <label for='userCity'>City</label>
+          <input id='userCity' type='text' :value="city" @input="city = $event.target.value.toUpperCase()">
+        </div>
+        <div class='input-field col s6'>
+          <label for='userState'>State</label>
+          <input id='userState' type='text' :value="state" @input="state = $event.target.value.toUpperCase()">
+        </div>
         {% comment %} <button type='submit' class='submit-button' @click.prevent='search'>Submit</button>
         {% endcomment %}
         <button class="btn waves-effect waves-dark" type="submit" @click.prevent='getLocations'>Submit</button>
+        </div>
       </form>
+      </div>
+      
       <div><button class="btn waves-effect waves-light" type="submit" @click='addNewLocation = ! addNewLocation'>Add
           Location</button></div>
+      
     </div>
 
 
@@ -41,43 +51,67 @@
 
     <!-- Add New Location Form -->
     <div class='add-new-area-div' v-if="addNewLocation">
-      <form @submit.prevent='addLocation' id='addNewForm'>
-        <h1>Add New Location</h1>
-        {% csrf_token %}
-        <label class='add_input' for='businessName'>Business Name:</label>
-        <input v-model='newLocation.businessName' id='businessName' placeholder='Name of Business'>
+      <div class="row">
+        <form @submit.prevent='addLocation' id='addNewForm' class="col s12">
+        <div class="row">
+          <h1>Add New Location</h1>
+          {% csrf_token %}
+          <div class="input-field col s6">
+            <label class='active' for='businessName'>Business Name:</label>
+            <input v-model='newLocation.businessName' id='businessName' placeholder="Business Name">
+          </div>
 
-        <label class='add_input' for='address'>Address:</label>
-        <input v-model='newLocation.locationAddress' id='address' placeholder='Address'>
+          <div class="input-field col s6">
+            <label class='active' for='address'>Address:</label>
+            <input v-model='newLocation.locationAddress' id='address' placeholder='Address'>
+          </div>
 
-        <label class='add_input' for='city'>City:</label>
-        <input id='city' placeholder='City' :value="newLocation.locationCity"
-          @input="newLocation.locationCity = $event.target.value.toUpperCase()">
+          <div class="input-field col s6">
+            <label class='active' for='city'>City:</label>
+            <input id='city' placeholder='City' :value="newLocation.locationCity"
+            @input="newLocation.locationCity = $event.target.value.toUpperCase()">
+          </div>
 
-        <label class='add_input' for='state'>State:</label>
-        <input id='state' placeholder='State: OR' :value="newLocation.locationState"
-          @input="newLocation.locationState = $event.target.value.toUpperCase()">
+          <div class="input-field col s6">
+            <label class='active' for='state'>State:</label>
+            <input id='state' placeholder='State: OR' :value="newLocation.locationState"
+            @input="newLocation.locationState = $event.target.value.toUpperCase()">
+          </div>
 
-        <label class='add_input' for='zipcode'>Zipcode/Postal Code:</label>
-        <input v-model='newLocation.locationZipCode' id='zipcode' placeholder='Zipcode/Postal Code'>
+          <div class="input-field col s6">
+            <label class='active' for='zipcode'>Zipcode/Postal Code:</label>
+            <input v-model='newLocation.locationZipCode' id='zipcode' placeholder='Zipcode/Postal Code'>
+          </div>
 
-        <label class='add_input' for='phoneNumber'>Phone Number:</label>
-        <input v-model='newLocation.phoneNumber' id='phoneNumber' placeholder='Phone Number (optional)'>
+          <div class="input-field col s6">
+            <label class='active' for='phoneNumber'>Phone Number <small>Format: 123-456-7890</small>:</label>
+            <input v-model='newLocation.phoneNumber' type='tel' id='phoneNumber' placeholder='Phone Number (optional)'>
+          </div>
 
-        <label class='add_input' for='website'>Website:</label>
-        <input v-model='newLocation.websiteUrl' id='website' placeholder='http://www.google.com (optional)'>
+          <div class="input-field col s6">
+            <label class='active' for='website'>Website:</label>
+            <input v-model='newLocation.websiteUrl' id='website' placeholder='http://www.google.com (optional)'>
+          </div>
 
-        <label class='add_input' for='storeHours'>Store hours:</label>
-        <input v-model='newLocation.storeHours' id='storeHours' placeholder='Store Hours (optional)'>
+          <div class="input-field col s6">
+            <label class='active' for='storeHours'>Store hours:</label>
+            <input v-model='newLocation.storeHours' id='storeHours' placeholder='Store Hours (optional)'>
+          </div>
 
-        <label class='add_input' for='downloadSpeed'>Download Speed (in Mbps): </label>
-        <input v-model='newLocation.downloadSpeed' id='downloadSpeed' placeholder='Download Speed'>
+          <div class="input-field col s6">
+            <label class='active' for='downloadSpeed'>Download Speed (in Mbps): </label>
+            <input v-model='newLocation.downloadSpeed' id='downloadSpeed' placeholder='Download Speed'>
+          </div>
 
-        <label class='add_input' for='uploadSpeed'>Upload Speed (in Mbps): </label>
-        <input v-model='newLocation.uploadSpeed' id='uploadSpeed' placeholder='Upload Speed'>
+          <div class="input-field col s6">
+            <label class='active' for='uploadSpeed'>Upload Speed (in Mbps): </label>
+            <input v-model='newLocation.uploadSpeed' id='uploadSpeed' placeholder='Upload Speed'>
+          </div>
 
-        <button class="btn waves-effect waves-light" type="submit" @click.prevent='addLocation'>Submit</button>
-      </form>
+          <button class="btn waves-effect waves-light" type="submit" @click.prevent='addLocation'>Submit</button>
+          </div>
+        </form>
+      </div>
 
       {% comment %} <addnewlocation></addnewlocation> {% endcomment %}
     </div> <!-- End Add New Area Div -->

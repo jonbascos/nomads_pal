@@ -43,6 +43,12 @@
 // })
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, options);
+  });
+
+
 
 Vue.component('results', {
     props: ['location'],
@@ -58,8 +64,7 @@ Vue.component('results', {
                             <li>Phone Number: {{ location.phoneNumber }}</li>
                             <li><a :href=location.websiteUrl>{{ location.websiteUrl }}</a></li>
                             <li>Store Hours: {{ location.storeHours }}</li>
-                            <li>Download Speed: {{ location.downloadSpeed }} Mbps</li>
-                            <li>Upload Speed: {{ location.uploadSpeed }} Mbps</li>
+                            <li>Average: 100Mbps download / 100Mbps upload</li>
                         </div>
                 </div>
             </ul>
@@ -70,7 +75,10 @@ Vue.component('results', {
         return {
             detailstoggle: false,
         }
-    }
+    },
+    computed: {
+
+    },
 })
 
 
@@ -169,3 +177,5 @@ new Vue({
         },
     },
 });
+
+M.AutoInit();

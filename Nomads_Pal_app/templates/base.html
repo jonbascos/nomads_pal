@@ -9,6 +9,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 
@@ -20,15 +22,21 @@
     <header>
       <nav>
         <div class="nav-wrapper">
-          <a href="{% url 'home' %}" class="brand-logo">Nomad's Pal</a>
-          <ul id="nav-mobile" class="right  hide-on-med-and-down">
+          <a href="{% url 'home' %}" class="brand-logo"><img src="./media/images/assets/Nomads_Pal_Logo2.png" id="logo" class=' responsive-img'></a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
             <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="#">How to Become a Digital Nomad</a></li>
-            <li><a href="#">Places to Go</a></li>
-            <li><a href="#">Travel Insurance</a></li>
+            <li><a href="https://www.worldnomads.com/travel-insurance/">Travel Insurance</a></li>
           </ul>
         </div>
       </nav>
+
+      <ul class="sidenav" id="mobile-demo">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="#">How to Become a Digital Nomad</a></li>
+        <li><a href="https://www.worldnomads.com/travel-insurance/">Travel Insurance</a></li>
+      </ul>
     </header>
     
     {% block content %}
