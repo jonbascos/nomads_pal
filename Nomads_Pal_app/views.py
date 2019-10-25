@@ -1,4 +1,4 @@
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView,TemplateView
 
 from .models import Location, Profile
 
@@ -7,12 +7,11 @@ class HomePageView(ListView):
     template_name = 'index.html'
     context_object_name = 'location_info'
 
-class ResultsPageView(DetailView):
+class ResultsPageView(TemplateView):
     model = Location
     template_name = 'results.html'
     
-
-class AddNewPageView(ListView):
+class AddNewPageView(TemplateView):
     model = Location
     template_name = 'addNew.html'
     success_url = 'home'

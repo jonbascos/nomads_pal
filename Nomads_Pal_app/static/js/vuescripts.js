@@ -1,46 +1,4 @@
 
-// Vue.component('addnewlocation', {
-//     props: ['businessName']['newLocation'],
-//     template: `
-//         <form @submit.prevent='addLocation' id='addNewForm'>
-//             <h1>Add New Location</h1>
-//             {% csrf_token %}
-//             <label class='add_input' for='businessName'>Business Name:</label>
-//             <input v-model='newLocation.businessName' id='businessName' placeholder='Name of Business'>
-
-//             <label class='add_input' for='address'>Address:</label>
-//             <input v-model='newLocation.locationAddress' id='address' placeholder='Address'>
-
-//             <label class='add_input' for='city'>City:</label>
-//             <input id='city' placeholder='City' :value="newLocation.locationCity"
-//             @input="newLocation.locationCity = $event.target.value.toUpperCase()">
-
-//             <label class='add_input' for='state'>State:</label>
-//             <input id='state' placeholder='State: OR' :value="newLocation.locationState"
-//             @input="newLocation.locationState = $event.target.value.toUpperCase()">
-
-//             <label class='add_input' for='zipcode'>Zipcode/Postal Code:</label>
-//             <input v-model='newLocation.locationZipCode' id='zipcode' placeholder='Zipcode/Postal Code'>
-
-//             <label class='add_input' for='phoneNumber'>Phone Number:</label>
-//             <input v-model='newLocation.phoneNumber' id='phoneNumber' placeholder='Phone Number (optional)'>
-
-//             <label class='add_input' for='website'>Website:</label>
-//             <input v-model='newLocation.websiteUrl' id='website' placeholder='http://www.google.com (optional)'>
-
-//             <label class='add_input' for='storeHours'>Store hours:</label>
-//             <input v-model='newLocation.storeHours' id='storeHours' placeholder='Store Hours (optional)'>
-
-//             <label class='add_input' for='downloadSpeed'>Download Speed (in Mbps): </label>
-//             <input v-model='newLocation.downloadSpeed' id='downloadSpeed' placeholder='downloadSpeed'>
-
-//             <label class='add_input' for='uploadSpeed'>Upload Speed (in Mbps): </label>
-//             <input v-model='newLocation.uploadSpeed' id='uploadSpeed' placeholder='uploadSpeed'>
-
-//             <button class="btn waves-effect waves-light" type="submit" @click.prevent='addLocation'>Submit</button>
-//         </form>
-//     `
-// })
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -48,7 +6,29 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.Sidenav.init(elems, options);
   });
 
+Vue.component("app-navbar", {
+    template: `
+        <div>
+            <nav>
+                <div class="nav-wrapper">
+                <a href="{% url 'home' %}" class="brand-logo"><img src="../media/images/assets/Nomads_Pal_Logo2.png" id="logo" class=' responsive-img'></a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="#">How to Become a Digital Nomad</a></li>
+                    <li><a href="https://www.worldnomads.com/travel-insurance/">Travel Insurance</a></li>
+                </ul>
+                </div>
+            </nav>
 
+            <ul class="sidenav" id="mobile-demo">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="#">How to Become a Digital Nomad</a></li>
+                <li><a href="https://www.worldnomads.com/travel-insurance/">Travel Insurance</a></li>
+            </ul>
+        </div>
+    `
+})
 
 Vue.component('results', {
     props: ['location'],
@@ -70,14 +50,10 @@ Vue.component('results', {
             </ul>
         </div>
     `,
-
     data () {
         return {
             detailstoggle: false,
         }
-    },
-    computed: {
-
     },
 })
 
@@ -87,7 +63,7 @@ new Vue({
     delimiters: ['[[', ']]'],
     data: {
         results: null,
-        page: 1,
+        totalResults: null,
         next: null,
         previous: null,
         clickedSubmit: false,
@@ -107,8 +83,8 @@ new Vue({
             phoneNumber: null,
             websiteUrl: null,
             storeHours: null,
-            uploadSpeed: null,
             downloadSpeed: null,
+            uploadSpeed: null,
         },
     },
     methods: {
@@ -133,6 +109,7 @@ new Vue({
                 this.previous = response.data.previous;
                 console.log(this.previous);
                 console.log(this.resultLocations);
+                this.totalResults = response.data.count;
                 this.city="";
                 this.state="";
             })
@@ -158,7 +135,7 @@ new Vue({
                     storeHours: this.newLocation.storeHours,
                     uploadSpeed: this.newLocation.uploadSpeed,
                     downloadSpeed: this.newLocation.downloadSpeed,
-                 },
+                },
                 }).then(response => {
                     console.log(response);
                     alert('Success');

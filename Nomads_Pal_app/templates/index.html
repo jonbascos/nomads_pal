@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{% comment %}
 <div class='main-body'>
   <!-- What is a Digital Nomad -->
   <div class='nomad-description-box'>
@@ -25,22 +26,23 @@
           <label for='userState'>State</label>
           <input id='userState' type='text' :value="state" @input="state = $event.target.value.toUpperCase()">
         </div>
-        {% comment %} <button type='submit' class='submit-button' @click.prevent='search'>Submit</button>
-        {% endcomment %}
+        
         <button class="btn waves-effect waves-dark" type="submit" @click.prevent='getLocations'>Submit</button>
         </div>
       </form>
       </div>
-      
-      <div><button class="btn waves-effect waves-light" type="submit" @click='addNewLocation = ! addNewLocation'>Add
-          Location</button></div>
-      
-    </div>
+      {% endcomment %}
+
+      <div id="addLocationButton">
+          <button class="btn waves-effect waves-light" @click='addNewLocation = ! addNewLocation'>Add
+          Location</button>
+      </div> 
+
 
 
     <!-- Search Results Area -->
 
-    
+
     <div class="location-card-area">
       <results v-for="location in resultLocations" :key="location.id" :location="location"></results> 
     </div>
@@ -113,8 +115,8 @@
         </form>
       </div>
 
-      {% comment %} <addnewlocation></addnewlocation> {% endcomment %}
-    </div> <!-- End Add New Area Div -->
+      
+    </div> <!-- End Add New Area Div --> 
   </div> <!-- End Vue Div -->
 
 </div> <!-- End of main-body div -->

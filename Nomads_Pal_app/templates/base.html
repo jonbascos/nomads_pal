@@ -7,49 +7,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-   <!--Import Google Icon Font-->
+  <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-
   <title>Nomad's Pal</title>
 </head>
 
 <body>
   <div id='vue'>
-    <header>
-      <nav>
-        <div class="nav-wrapper">
-          <a href="{% url 'home' %}" class="brand-logo"><img src="./media/images/assets/Nomads_Pal_Logo2.png" id="logo" class=' responsive-img'></a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="#">How to Become a Digital Nomad</a></li>
-            <li><a href="https://www.worldnomads.com/travel-insurance/">Travel Insurance</a></li>
-          </ul>
-        </div>
-      </nav>
 
-      <ul class="sidenav" id="mobile-demo">
-        <li><a href="{% url 'home' %}">Home</a></li>
-        <li><a href="#">How to Become a Digital Nomad</a></li>
-        <li><a href="https://www.worldnomads.com/travel-insurance/">Travel Insurance</a></li>
-      </ul>
-    </header>
-    
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+
+    <!-- Nomad Description -->
+    <div class='main-body'>
+      <div class='nomad-description-box'>
+        <a href="https://en.wikipedia.org/wiki/Digital_nomad" target='_blank'><span id='nomad-text'>Digital
+            Nomad:</a></span> Someone who is able to work from anywhere they have an internet connection and usually does so
+            while traveling away from their home.
+      </div> <!-- End nomad-description-box -->
+    </div>
+
+
+    <!-- Search -->
+    <div class='search-area'>
+      Looking for a coffee shop or co-working space to work out of in the Portland Metro?
+      <div class="row">
+        <form @submit.prevent='results' class="col s12">
+          {% csrf_token %}
+          <div class="row">
+            <div class='input-field col s6'>
+              <label for='userCity'>City</label>
+              <input id='userCity' type='text' :value="city" @input="city = $event.target.value.toUpperCase()">
+            </div>
+
+            <div class='input-field col s6'>
+              <label for='userState'>State</label>
+              <input id='userState' type='text' :value="state" @input="state = $event.target.value.toUpperCase()">
+            </div>
+
+            <button class="btn waves-effect waves-dark" type="submit" @click.prevent='getLocations'>Submit</button>
+          </div> <!-- End row div-->
+        </form>
+      </div> <!-- End row div -->
+    </div> <!-- End search-area div -->
+
     {% block content %}
+
     {% endblock content %}
 
-    <footer>
-      Copyright &copy; 2019 by Jon Bascos<br>
-      version 1.0
-    </footer>
-  </div>
-  
-  
-  <script src='https://unpkg.com/vue'></script>
+  </div> <!-- End Vue div -->
+
+  <footer>
+    Copyright &copy; 2019 by Jon Bascos<br>
+    version 1.0
+  </footer>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

@@ -73,6 +73,11 @@ nav ul a:hover,
     outline: none;
     margin: 10px;
     border-radius: 5px;
+    text-align: center;
+}
+
+#addLocationButton {
+    text-align: center;
 }
 
 .btn:hover {
