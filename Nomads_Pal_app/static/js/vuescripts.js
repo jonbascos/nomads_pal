@@ -4,7 +4,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(elems, options);
-  });
+});
 
 Vue.component("app-navbar", {
     template: `
@@ -30,32 +30,78 @@ Vue.component("app-navbar", {
     `
 })
 
-Vue.component('results', {
-    props: ['location'],
-    template: `
-        <div>
-            <ul>
-                <div class="location-card">
-                        <li><a :href=location.websiteUrl>{{ location.businessName }}</a></li>
-                        <li><img src="https://placeimg.com/200/200/tech"></li>
-                        <li>Address: {{ location.locationAddress }}<br> {{ location.locationCity}}, {{ location.locationState}} {{ location.locationZipCode }}</li>
-                        <button @click="detailstoggle = ! detailstoggle" class="btn">Details</button>
-                        <div v-if="detailstoggle">
-                            <li>Phone Number: {{ location.phoneNumber }}</li>
-                            <li><a :href=location.websiteUrl>{{ location.websiteUrl }}</a></li>
-                            <li>Store Hours: {{ location.storeHours }}</li>
-                            <li>Average: 100Mbps download / 100Mbps upload</li>
-                        </div>
-                </div>
-            </ul>
-        </div>
-    `,
+Vue.component('app-results', {
     data () {
         return {
+            pageNumber: 0,
+            resultLocations: this.resultLocations,
             detailstoggle: false,
         }
     },
-})
+
+    props:{
+        listData: {
+            type: Array,
+            required: true,
+        },
+        size: {
+            type: Number,
+            required: false,
+            default: 5
+        },
+    },
+    
+    methods: {
+        nextPage() {
+            this.pageNumber++;
+        },
+        prevPage() {
+            this.pageNumber--;
+        },
+    },
+
+    computed: {
+        pageCount() {
+            let l = this.listData.length;
+            let s = this.size;
+            return Math.ceil(l/s);
+        },
+        paginatedData() {
+            const start = this.pageNumber * this.size;
+            const end = start + this.size;
+
+            return this.listData.slice(start, end);
+        },
+    },
+
+    template: `
+        <div>
+            <div v-if="this.listData.length==0">
+                <p><h3>Enter your search or No results found!</h3></p>
+            </div>
+            <div v-else="this.listData.length > 0">
+                <ul class="location-card-area">
+                    <div class="location-card" v-for="location in paginatedData">
+                        <li><a :href=location.websiteUrl>{{ location.businessName }}</a></li>
+                        <li><img src="https://placeimg.com/200/200/tech"></li>
+                        <li>Address: {{ location.locationAddress }}<br> {{ location.locationCity}}, {{ location.locationState}} {{ location.locationZipCode }}</li>
+                        <li>Phone Number: {{ location.phoneNumber }}</li>
+                        <li><a :href=location.websiteUrl>{{ location.websiteUrl }}</a></li>
+                        <li>Store Hours: {{ location.storeHours }}</li>
+                        <li>Average: 100Mbps download / 100Mbps upload</li>
+                    </div>
+                </ul>
+                <div class="paginationContainer">
+                    <div v-if="this.listData.length != 0" class="pageBox">
+                        <button v-on:click="prevPage" :disabled="pageNumber==0">Previous</button>
+                        <span> Page {{ this.pageNumber + 1 }} of {{ Math.ceil(this.listData.length / this.size) }} </span>
+                        <button v-on:click="nextPage" :disabled="pageNumber >= pageCount - 1" >Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+}),
 
 
 new Vue({
@@ -64,8 +110,6 @@ new Vue({
     data: {
         results: null,
         totalResults: null,
-        next: null,
-        previous: null,
         clickedSubmit: false,
         addNewLocation: false,
         details: false,
@@ -73,6 +117,9 @@ new Vue({
         state: "",
         locations: [],
         resultLocations: [],
+        perPage: 5,
+        page: 1,
+        pages: [],
         newLocation: {
             businessName: null,
             locationPhoto: null,
@@ -104,14 +151,14 @@ new Vue({
             }).then(response => {
                 console.log(response);
                 this.resultLocations = response.data.results;
-                this.next = response.data.next;
-                console.log(this.next);
-                this.previous = response.data.previous;
-                console.log(this.previous);
                 console.log(this.resultLocations);
                 this.totalResults = response.data.count;
+                console.log(this.totalResults + 'total results')
                 this.city="";
                 this.state="";
+            })
+            .catch(function(error) {
+                console.log(error);
             })
         },
         

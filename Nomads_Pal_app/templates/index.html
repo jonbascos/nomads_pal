@@ -2,36 +2,6 @@
 
 {% block content %}
 
-{% comment %}
-<div class='main-body'>
-  <!-- What is a Digital Nomad -->
-  <div class='nomad-description-box'>
-    <a href="https://en.wikipedia.org/wiki/Digital_nomad" target='_blank'><span id='nomad-text'>Digital
-        Nomad:</a></span> Someone who is able to work from anywhere they have an internet connection and usually does so
-    while traveling away from their home.
-  </div>
-  <div id='vue'>
-    <!-- Search --> 
-    <div class='search-area'>
-      Looking for a coffee shop or co-working space to work out of in the Portland Metro?
-      <div class="row">
-      <form method='post' action={% url 'results' %} class="col s12">
-        {% csrf_token %}
-        <div class="row">
-        <div class='input-field col s6'>
-          <label for='userCity'>City</label>
-          <input id='userCity' type='text' :value="city" @input="city = $event.target.value.toUpperCase()">
-        </div>
-        <div class='input-field col s6'>
-          <label for='userState'>State</label>
-          <input id='userState' type='text' :value="state" @input="state = $event.target.value.toUpperCase()">
-        </div>
-        
-        <button class="btn waves-effect waves-dark" type="submit" @click.prevent='getLocations'>Submit</button>
-        </div>
-      </form>
-      </div>
-      {% endcomment %}
 
       <div id="addLocationButton">
           <button class="btn waves-effect waves-light" @click='addNewLocation = ! addNewLocation'>Add
@@ -41,11 +11,12 @@
 
 
     <!-- Search Results Area -->
+    
+      <app-results :list-data = "resultLocations">
+      </app-results>
 
-
-    <div class="location-card-area">
-      <results v-for="location in resultLocations" :key="location.id" :location="location"></results> 
-    </div>
+    
+    
 
     
     <!-- End Search Result Area -->

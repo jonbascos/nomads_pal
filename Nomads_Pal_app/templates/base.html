@@ -21,7 +21,7 @@
   <div id='vue'>
 
     <!-- Navbar -->
-    <app-navbar></app-navbar>
+    <app-navbar :addNewLocation="addNewLocation"></app-navbar>
 
     <!-- Nomad Description -->
     <div class='main-body'>
@@ -42,12 +42,12 @@
           <div class="row">
             <div class='input-field col s6'>
               <label for='userCity'>City</label>
-              <input id='userCity' type='text' :value="city" @input="city = $event.target.value.toUpperCase()">
+              <input id='userCity' type='text' :value="city" @input="city = $event.target.value.toUpperCase()" placeholder="Enter a city">
             </div>
 
             <div class='input-field col s6'>
               <label for='userState'>State</label>
-              <input id='userState' type='text' :value="state" @input="state = $event.target.value.toUpperCase()">
+              <input id='userState' type='text' :value="state" @input="state = $event.target.value.toUpperCase()" placeholder="2 letter state (ex. CA, OR, WA)">
             </div>
 
             <button class="btn waves-effect waves-dark" type="submit" @click.prevent='getLocations'>Submit</button>
