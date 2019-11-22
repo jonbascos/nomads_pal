@@ -1,9 +1,11 @@
 
-
+console.log('loaded')
 
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems, options);
+    var instances = M.Sidenav.init(elems,{
+        edge: 'right',
+    });
 });
 
 Vue.component("app-navbar", {
@@ -11,8 +13,8 @@ Vue.component("app-navbar", {
         <div>
             <nav>
                 <div class="nav-wrapper">
-                <a href="{% url 'home' %}" class="brand-logo"><img src="../media/images/assets/Nomads_Pal_Logo2.png" id="logo" class=' responsive-img'></a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="{% url 'home' %}" class="brand-logo left"><img src="../media/images/assets/Nomads_Pal_Logo2.png" id="logo" class=' responsive-img'></a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="#">How to Become a Digital Nomad</a></li>
@@ -92,7 +94,7 @@ Vue.component('app-results', {
                     </div>
                 </ul>
                 <div class="paginationContainer">
-                    <div v-if="this.listData.length != 0" class="pageBox">
+                    <div v-if="this.listData.length != 0">
                         <button v-on:click="prevPage" :disabled="pageNumber==0">Previous</button>
                         <span> Page {{ this.pageNumber + 1 }} of {{ Math.ceil(this.listData.length / this.size) }} </span>
                         <button v-on:click="nextPage" :disabled="pageNumber >= pageCount - 1" >Next</button>
@@ -157,8 +159,8 @@ new Vue({
                 this.city="";
                 this.state="";
             })
-            .catch(function(error) {
-                console.log(error);
+            .catch(function(err) {
+                console.log(err);
             })
         },
         

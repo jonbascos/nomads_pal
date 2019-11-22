@@ -113,6 +113,10 @@ nav ul a:hover,
     justify-content: center;
 }
 
+.sidenav {
+    background-color: #f2f6f5;
+}
+
 footer {
     text-align: center;
     font-size: .9em;
