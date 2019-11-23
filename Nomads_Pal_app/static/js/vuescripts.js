@@ -17,7 +17,7 @@ Vue.component("app-navbar", {
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="http://www.nomadspal.com">Home</a></li>
-                    <li><a href="#">How to Become a Digital Nomad</a></li>
+                    <li><a href="https://drive.google.com/open?id=1lpIQllfdubZ9XegMPJ4loeSPlMM3cDRK0RUc8jmJb24">How to Become a Digital Nomad</a></li>
                     <li><a href="https://www.worldnomads.com/travel-insurance/">Travel Insurance</a></li>
                 </ul>
                 </div>
@@ -25,7 +25,7 @@ Vue.component("app-navbar", {
 
             <ul class="sidenav" id="mobile-demo">
                 <li><a href="http://www.nomadspal.com">Home</a></li>
-                <li><a href="#">How to Become a Digital Nomad</a></li>
+                <li><a href="https://drive.google.com/open?id=1lpIQllfdubZ9XegMPJ4loeSPlMM3cDRK0RUc8jmJb24">How to Become a Digital Nomad</a></li>
                 <li><a href="https://www.worldnomads.com/travel-insurance/">Travel Insurance</a></li>
             </ul>
         </div>
