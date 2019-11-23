@@ -13,10 +13,10 @@ Vue.component("app-navbar", {
         <div>
             <nav>
                 <div class="nav-wrapper">
-                <a href="{% url 'home' %}" class="brand-logo left"><img src="../media/images/assets/Nomads_Pal_Logo2.png" id="logo" class=' responsive-img'></a>
+                <a href="http://www.nomadspal.com" class="brand-logo left"><img src="../media/images/assets/Nomads_Pal_Logo2.png" id="logo" class=' responsive-img'></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="http://www.nomadspal.com">Home</a></li>
                     <li><a href="#">How to Become a Digital Nomad</a></li>
                     <li><a href="https://www.worldnomads.com/travel-insurance/">Travel Insurance</a></li>
                 </ul>
@@ -24,7 +24,7 @@ Vue.component("app-navbar", {
             </nav>
 
             <ul class="sidenav" id="mobile-demo">
-                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="http://www.nomadspal.com">Home</a></li>
                 <li><a href="#">How to Become a Digital Nomad</a></li>
                 <li><a href="https://www.worldnomads.com/travel-insurance/">Travel Insurance</a></li>
             </ul>
