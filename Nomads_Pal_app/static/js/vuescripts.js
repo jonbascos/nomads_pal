@@ -78,7 +78,7 @@ Vue.component('app-results', {
 
     template: `
         <div>
-            <div v-if="this.listData.length==0">
+            <div v-if="this.listData.length==0" class="searchOrNotFound">
                 <p><h3>Enter your search or No results found!</h3></p>
             </div>
             <div v-else="this.listData.length > 0">

@@ -41,12 +41,12 @@
           {% csrf_token %}
           <div class="row">
             <div class='input-field col s6'>
-              <label for='userCity'>City</label>
+              <label for='userCity' class="inputlabels">City</label>
               <input id='userCity' type='text' :value="city" @input="city = $event.target.value.toUpperCase()" placeholder="Enter a city">
             </div>
 
             <div class='input-field col s6'>
-              <label for='userState'>State</label>
+              <label for='userState' class="inputlabels">State</label>
               <input id='userState' type='text' :value="state" @input="state = $event.target.value.toUpperCase()" placeholder="2 letter state (ex. CA, OR, WA)">
             </div>
 
