@@ -2,6 +2,13 @@ body {
     background-color: #f2f6f5;
     color: #075853;
     font-size: 1.2em;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1 0 auto;
 }
 
 label {
@@ -131,4 +138,9 @@ nav ul a:hover,
 footer {
     text-align: center;
     font-size: .9em;
+    margin-top: 10px;
+}
+
+.page-footer {
+    background-color: #64707E;
 }
