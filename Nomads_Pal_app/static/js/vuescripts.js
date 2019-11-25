@@ -84,7 +84,7 @@ Vue.component('app-results', {
             <div v-else="this.listData.length > 0">
                 <ul class="location-card-area">
                     <div class="location-card" v-for="location in paginatedData">
-                        <li><a :href=location.websiteUrl>{{ location.businessName }}</a></li>
+                        <li><a :href=location.websiteUrl><h5>{{ location.businessName }}</h5></a></li>
                         <li><img src="https://placeimg.com/200/200/tech"></li>
                         <li>Address: {{ location.locationAddress }}<br> {{ location.locationCity}}, {{ location.locationState}} {{ location.locationZipCode }}</li>
                         <li>Phone Number: {{ location.phoneNumber }}</li>
