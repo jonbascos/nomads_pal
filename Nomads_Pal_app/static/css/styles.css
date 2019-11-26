@@ -119,6 +119,7 @@ nav ul a:hover,
     margin-top: 10px;
     font-size: 1em;
     border-radius: 20px;
+    text-align: center;
 }
 
 .location-card img {

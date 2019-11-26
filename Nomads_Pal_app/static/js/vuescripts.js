@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
+
 Vue.component("app-navbar", {
     template: `
         <div>
@@ -90,7 +95,7 @@ Vue.component('app-results', {
                         <li>Phone Number: {{ location.phoneNumber }}</li>
                         <li><a :href=location.websiteUrl>{{ location.websiteUrl }}</a></li>
                         <li>Store Hours: {{ location.storeHours }}</li>
-                        <li>Average: 100Mbps download / 100Mbps upload</li>
+                        <li>Average: {{location.downloadSpeed}} Mbps download / {{location.uploadSpeed}} Mbps upload</li>
                     </div>
                 </ul>
                 <div class="paginationContainer">
